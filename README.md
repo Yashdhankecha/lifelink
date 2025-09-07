@@ -288,22 +288,6 @@ PUT  /api/admin/hospitals/:id/verify  # Verify hospital
 
 ---
 
-## 🎨 Screenshots
-
-### 🏠 **Homepage**
-![Homepage](https://via.placeholder.com/800x400/FF6B6B/FFFFFF?text=Life+Link+Homepage)
-
-### 📱 **Dashboard**
-![Dashboard](https://via.placeholder.com/800x400/4ECDC4/FFFFFF?text=User+Dashboard)
-
-### 🏥 **Hospital Panel**
-![Hospital Panel](https://via.placeholder.com/800x400/45B7D1/FFFFFF?text=Hospital+Dashboard)
-
-### 📊 **Analytics**
-![Analytics](https://via.placeholder.com/800x400/96CEB4/FFFFFF?text=Analytics+Dashboard)
-
----
-
 ## 🧪 Testing
 
 ### **Run Tests**
@@ -426,9 +410,8 @@ git push origin feature/amazing-feature
 
 ## 📞 Support
 
-- **Email**: support@lifelink.com
-- **Discord**: [Join our community](https://discord.gg/lifelink)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/life-link/issues)
+- **Email**: ydhankecha@gmail.com
+- **Issues**: [GitHub Issues](https://github.com/Yashdhankecha/lifelink/issues)
 
 ---
 
@@ -451,7 +434,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for saving lives through blood donation**
 
-[⭐ Star this repo](https://github.com/yourusername/life-link) • [🐛 Report Bug](https://github.com/yourusername/life-link/issues) • [💡 Request Feature](https://github.com/yourusername/life-link/issues)
+[⭐ Star this repo](https://github.com/Yashdhankecha/lifelink) • [🐛 Report Bug](https://github.com/Yashdhankecha/lifelink/issues) • [💡 Request Feature]https://github.com/Yashdhankecha/lifelink/issues)
 
 ---
 
