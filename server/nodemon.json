@@ -1,0 +1,24 @@
+{
+  "watch": ["src"],
+  "ext": "js",
+  "ignore": [
+    "node_modules/",
+    "logs/",
+    "uploads/",
+    "*.log",
+    "*.tmp",
+    "*.temp",
+    ".git/",
+    "coverage/",
+    "dist/",
+    "build/"
+  ],
+  "delay": 3000,
+  "restartable": "rs",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "verbose": true,
+  "legacyWatch": false,
+  "signal": "SIGTERM"
+}

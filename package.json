@@ -1,0 +1,21 @@
+{
+  "name": "life-link",
+  "version": "1.0.0",
+  "description": "MERN stack application for blood donation management",
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "server": "cd server && npm start",
+    "server-dev": "cd server && npm run dev",
+    "start": "concurrently \"npm run server\" \"npm run dev\"",
+    "start-stable": "concurrently \"npm run server\" \"npm run dev\"",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "install-all": "npm run install-client && npm run install-server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["mern", "react", "nodejs", "mongodb", "blood-donation"],
+  "author": "",
+  "license": "MIT"
+}

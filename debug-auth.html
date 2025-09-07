@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Authentication</title>
+</head>
+<body>
+    <h1>Authentication Debug</h1>
+    <div id="status"></div>
+    <button onclick="testAuth()">Test Authentication</button>
+    <button onclick="testExport()">Test Export</button>
+    
+    <script>
+        async function testAuth() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = 'Testing authentication...';
+            
+            try {
+                const response = await fetch('/api/auth/me', {
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <h3>Auth Status:</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Success: ${data.success}</p>
+                    <p>User: ${JSON.stringify(data.user || data, null, 2)}</p>
+                    <p>Cookies: ${document.cookie}</p>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+        
+        async function testExport() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = 'Testing export...';
+            
+            try {
+                const response = await fetch('/api/admin/export/users?format=csv', {
+                    credentials: 'include'
+                });
+                
+                statusDiv.innerHTML = `
+                    <h3>Export Test:</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Status Text: ${response.statusText}</p>
+                    <p>Headers: ${JSON.stringify([...response.headers.entries()], null, 2)}</p>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `Export Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
+
