@@ -6,11 +6,12 @@
     "dev": "cd client && npm run dev",
     "server": "cd server && npm start",
     "server-dev": "cd server && npm run dev",
-    "start": "concurrently \"npm run server\" \"npm run dev\"",
-    "start-stable": "concurrently \"npm run server\" \"npm run dev\"",
+    "start": "cd server && npm start",
+    "start-dev": "concurrently \"npm run server\" \"npm run dev\"",
     "install-client": "cd client && npm install",
     "install-server": "cd server && npm install",
-    "install-all": "npm run install-client && npm run install-server"
+    "install-all": "npm run install-client && npm run install-server",
+    "postinstall": "cd server && npm install && cd ../client && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

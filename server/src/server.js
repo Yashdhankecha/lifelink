@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/errorHandler');
 const { createDevFriendlyLimiter, createAuthLimiter } = require('./utils/rateLimitHelper');
@@ -32,6 +33,11 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Serve React build in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../client/dist')));
+}
 
 // Global rate limiting (more lenient in development)
 const globalLimiter = createDevFriendlyLimiter({
@@ -81,10 +87,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found'
-  });
+  // In production, serve React app for client-side routing
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  } else {
+    res.status(404).json({
+      success: false,
+      message: 'Route not found'
+    });
+  }
 });
 
 // Error handler middleware
