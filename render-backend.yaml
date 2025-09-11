@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: life-link-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        value: mongodb+srv://harshvyas:kushdon@lifelink.tugr4wr.mongodb.net/life-link
+      - key: JWT_SECRET
+        value: lifelinkbymaksad
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: CLIENT_URL
+        value: https://your-netlify-app.netlify.app
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USER
+        value: yashdhankecha101@gmail.com
+      - key: EMAIL_PASS
+        value: bewz faij mzfm mwnb
+      - key: GROQ_API_KEY
+        value: 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

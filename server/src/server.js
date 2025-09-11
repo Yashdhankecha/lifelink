@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
-const connectDB = require('./config/db');
+const { connectDB } = require('./config/db');
 const { errorHandler } = require('./middleware/errorHandler');
 const { createDevFriendlyLimiter, createAuthLimiter } = require('./utils/rateLimitHelper');
 
@@ -34,10 +34,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Serve React build in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../client/dist')));
-}
+// Static file serving removed - frontend will be served by Netlify
 
 // Global rate limiting (more lenient in development)
 const globalLimiter = createDevFriendlyLimiter({
@@ -105,23 +102,74 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// 404 handler
-app.use('*', (req, res) => {
-  // In production, serve React app for client-side routing
-  if (process.env.NODE_ENV === 'production') {
-    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
-  } else {
-    res.status(404).json({
+// Route to manually retry database connection (for debugging)
+app.post('/api/dev/retry-db', (req, res) => {
+  const { retryConnection } = require('./config/db');
+  
+  try {
+    retryConnection();
+    res.status(200).json({
+      success: true,
+      message: 'Database connection retry initiated'
+    });
+  } catch (error) {
+    res.status(500).json({
       success: false,
-      message: 'Route not found'
+      message: 'Failed to retry database connection',
+      error: error.message
     });
   }
+});
+
+// Root route - Backend only
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Life Link Backend API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth/*',
+      users: '/api/users/*',
+      hospital: '/api/hospital/*',
+      requests: '/api/requests/*',
+      chatbot: '/api/chatbot/*',
+      admin: '/api/admin/*'
+    },
+    frontend: 'https://lifelinkbytripod.netlify.app/',
+    documentation: 'This is a backend-only service. Frontend is served by Netlify.'
+  });
+});
+
+// 404 handler for API routes only
+app.use('/api/*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'API endpoint not found'
+  });
+});
+
+// Catch-all for non-API routes - Backend only
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found. This is a backend-only service. Frontend is served by Netlify.',
+    availableEndpoints: [
+      '/api/health',
+      '/api/auth/*',
+      '/api/users/*',
+      '/api/hospital/*',
+      '/api/requests/*',
+      '/api/chatbot/*',
+      '/api/admin/*'
+    ]
+  });
 });
 
 // Error handler middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000; // Render uses port 10000
 
 const server = app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
