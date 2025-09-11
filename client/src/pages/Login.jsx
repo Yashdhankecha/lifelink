@@ -70,7 +70,7 @@ const Login = () => {
       if (response.success && userData) {
         login(userData);
         
-        // Navigate to appropriate dashboard and reload instantly
+        // Navigate to appropriate dashboard
         let targetPath;
         switch (userData.role) {
           case 'hospital':
@@ -83,8 +83,8 @@ const Login = () => {
             targetPath = '/dashboard';
         }
         
-        // Use window.location.href to navigate and reload in one step
-        window.location.href = targetPath;
+        // Use navigate instead of window.location.href to avoid page reload
+        navigate(targetPath);
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed';

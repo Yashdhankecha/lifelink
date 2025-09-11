@@ -48,6 +48,11 @@ const authReducer = (state, action) => {
         ...state,
         error: null,
       };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
       return state;
   }
@@ -89,9 +94,17 @@ export const AuthProvider = ({ children }) => {
     toast.success('Login successful!');
   };
 
-  const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-    toast.success('Logged out successfully!');
+  const logout = async () => {
+    try {
+      // Call logout API to clear server-side session
+      const { logout: logoutAPI } = await import('../services/authService');
+      await logoutAPI();
+    } catch (error) {
+      console.error('Logout API call failed:', error);
+    } finally {
+      dispatch({ type: 'LOGOUT' });
+      toast.success('Logged out successfully!');
+    }
   };
 
   const clearError = () => {
