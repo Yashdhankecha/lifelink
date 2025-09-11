@@ -64,11 +64,31 @@ app.use('/api/admin', require('./routes/adminRoutes'));
 
 // Health check route
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
+  const mongoose = require('mongoose');
+  const dbStatus = mongoose.connection.readyState;
+  const dbStates = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  };
+
+  const healthData = {
     success: true,
     message: 'Server is running',
-    timestamp: new Date().toISOString()
-  });
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    database: {
+      status: dbStates[dbStatus] || 'unknown',
+      connected: dbStatus === 1
+    },
+    uptime: process.uptime(),
+    memory: process.memoryUsage()
+  };
+
+  // Return 200 even if database is not connected
+  // This allows the health check to pass while database reconnects
+  res.status(200).json(healthData);
 });
 
 // Development route to check rate limit status
@@ -105,19 +125,57 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`Health check available at: http://localhost:${PORT}/api/health`);
+  console.log(`Environment variables loaded:`, {
+    NODE_ENV: process.env.NODE_ENV,
+    PORT: process.env.PORT,
+    MONGODB_URI: process.env.MONGODB_URI ? 'Set' : 'Not set',
+    JWT_SECRET: process.env.JWT_SECRET ? 'Set' : 'Not set',
+    CLIENT_URL: process.env.CLIENT_URL
+  });
 });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err.message}`);
-  // Close server & exit process
-  server.close(() => {
-    process.exit(1);
-  });
+  console.error('Unhandled Promise Rejection:', err.message);
+  console.error('Stack:', err.stack);
+  
+  // In production, don't exit immediately - log and continue
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Server continuing despite unhandled promise rejection...');
+  } else {
+    server.close(() => {
+      process.exit(1);
+    });
+  }
 });
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
-  console.log(`Error: ${err.message}`);
-  process.exit(1);
+  console.error('Uncaught Exception:', err.message);
+  console.error('Stack:', err.stack);
+  
+  // In production, don't exit immediately - log and continue
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Server continuing despite uncaught exception...');
+  } else {
+    process.exit(1);
+  }
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
+  });
 });
