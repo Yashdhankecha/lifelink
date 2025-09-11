@@ -16,6 +16,9 @@ connectDB();
 
 const app = express();
 
+// Trust proxy for Render (required for rate limiting)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
@@ -28,7 +31,10 @@ app.use(cookieParser());
 
 // CORS middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [
+    "https://lifelinkbytripod.netlify.app",
+    "http://localhost:5173"
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
