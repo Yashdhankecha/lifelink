@@ -5,6 +5,10 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  VITE_API_URL = "https://lifelink-t6hl.onrender.com/api"
+  VITE_NODE_ENV = "production"
+  VITE_APP_NAME = "Life Link"
+  VITE_ENABLE_DEBUG = "false"
 
 [[redirects]]
   from = "/*"
@@ -14,7 +18,7 @@
 [[headers]]
   for = "/api/*"
   [headers.values]
-    Access-Control-Allow-Origin = "https://your-render-backend.onrender.com"
+    Access-Control-Allow-Origin = "https://lifelink-t6hl.onrender.com"
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, Authorization"
     Access-Control-Allow-Credentials = "true"
