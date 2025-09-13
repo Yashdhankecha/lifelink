@@ -404,36 +404,37 @@ const DashboardRouter = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-3 sm:py-8">
         {/* Header */}
         <motion.div 
-          className="mb-8"
+          className="mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 truncate">
                 Welcome back, {user?.name}! 👋
               </h1>
-              <p className="text-gray-600">
+              <p className="text-xs sm:text-sm lg:text-base text-gray-600">
                 Here's what's happening with your blood donation activities
               </p>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Location Status */}
               <motion.div 
-                className="flex items-center space-x-2 bg-white rounded-xl shadow-lg px-3 py-2"
+                className="flex items-center space-x-1 sm:space-x-2 bg-white rounded-lg sm:rounded-xl shadow-lg px-2 sm:px-3 py-1.5 sm:py-2"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <MapPin className={`h-4 w-4 ${hasLocation ? 'text-green-600' : 'text-gray-400'}`} />
+                <MapPin className={`h-3 w-3 sm:h-4 sm:w-4 ${hasLocation ? 'text-green-600' : 'text-gray-400'}`} />
                 <span className={`text-xs font-medium ${
                   hasLocation ? 'text-green-600' : 'text-gray-500'
                 }`}>
-                  {locationLoading ? 'Loading...' : hasLocation ? 'Location On' : 'Location Off'}
+                  <span className="hidden sm:inline">{locationLoading ? 'Loading...' : hasLocation ? 'Location On' : 'Location Off'}</span>
+                  <span className="sm:hidden">{locationLoading ? 'Loading' : hasLocation ? 'On' : 'Off'}</span>
                 </span>
               </motion.div>
 
@@ -452,7 +453,7 @@ const DashboardRouter = () => {
 
         {/* Quick Stats */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -482,20 +483,20 @@ const DashboardRouter = () => {
           ].map((stat, index) => (
             <motion.div 
               key={stat.label}
-              className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300"
+              className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 p-3 sm:p-4 lg:p-6 hover:shadow-xl transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`h-12 w-12 bg-gradient-to-br ${stat.bgColor} rounded-xl flex items-center justify-center`}>
-                  <stat.icon className={`h-6 w-6 text-gradient-to-r ${stat.color}`} />
+              <div className="flex items-center justify-between mb-2 sm:mb-3 lg:mb-4">
+                <div className={`h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 bg-gradient-to-br ${stat.bgColor} rounded-lg sm:rounded-xl flex items-center justify-center`}>
+                  <stat.icon className={`h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-gradient-to-r ${stat.color}`} />
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 mb-1">{stat.label}</p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                <p className="text-xs sm:text-sm font-medium text-gray-500 mb-1">{stat.label}</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{stat.value}</p>
               </div>
             </motion.div>
           ))}
@@ -503,18 +504,18 @@ const DashboardRouter = () => {
 
         {/* Tabs */}
         <motion.div 
-          className="mb-8"
+          className="mb-4 sm:mb-6 lg:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2">
-            <div className="flex space-x-2">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 p-1 sm:p-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {tabs.map((tab, index) => (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 lg:px-4 py-2 sm:py-3 rounded-md sm:rounded-lg lg:rounded-xl font-medium transition-all duration-200 min-h-[44px] text-xs sm:text-sm ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -525,8 +526,9 @@ const DashboardRouter = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <tab.icon className="h-4 w-4" />
-                  <span>{tab.name}</span>
+                  <tab.icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">{tab.name}</span>
+                  <span className="sm:hidden">{tab.name.charAt(0)}</span>
                 </motion.button>
               ))}
             </div>
@@ -579,44 +581,44 @@ const DashboardRouter = () => {
 
 // Tab Components
 const OverviewTab = ({ recentActivity, notifications }) => (
-  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
     {/* Recent Activity */}
     <div className="lg:col-span-2">
       <motion.div 
-        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-            <Activity className="h-5 w-5 mr-2 text-blue-600" />
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
+            <Activity className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-600" />
             Recent Activity
           </h3>
-          <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+          <button className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 font-medium min-h-[44px] px-2">
             View All
           </button>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {recentActivity.map((activity, index) => (
             <motion.div
               key={activity.id}
-              className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+              className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
             >
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
+              <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center ${
                 activity.type === 'donation' ? 'bg-red-100' :
                 activity.type === 'request' ? 'bg-blue-100' :
                 'bg-yellow-100'
               }`}>
-                {activity.type === 'donation' ? <Heart className="h-5 w-5 text-red-600" /> :
-                 activity.type === 'request' ? <Users className="h-5 w-5 text-blue-600" /> :
-                 <Award className="h-5 w-5 text-yellow-600" />}
+                {activity.type === 'donation' ? <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" /> :
+                 activity.type === 'request' ? <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" /> :
+                 <Award className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600" />}
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{activity.message}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">{activity.message}</p>
                 <p className="text-xs text-gray-500">{activity.time}</p>
               </div>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -633,30 +635,30 @@ const OverviewTab = ({ recentActivity, notifications }) => (
     </div>
 
     {/* Notifications & Quick Actions */}
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Notifications */}
       <motion.div 
-        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-4">
-          <Activity className="h-5 w-5 mr-2 text-purple-600" />
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-3 sm:mb-4">
+          <Activity className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-purple-600" />
           Notifications
         </h3>
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {notifications.map((notification, index) => (
             <motion.div
               key={notification.id}
-              className={`p-3 rounded-lg border-l-4 ${
+              className={`p-2 sm:p-3 rounded-lg border-l-4 ${
                 notification.read ? 'bg-gray-50 border-gray-300' : 'bg-blue-50 border-blue-400'
               }`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
             >
-              <p className="text-sm text-gray-900">{notification.message}</p>
+              <p className="text-xs sm:text-sm text-gray-900">{notification.message}</p>
               <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
             </motion.div>
           ))}
@@ -668,21 +670,21 @@ const OverviewTab = ({ recentActivity, notifications }) => (
 );
 
 const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptRequest, onShowRequestDetail, hasLocation, user, stats }) => (
-  <div className="space-y-8">
+  <div className="space-y-6 sm:space-y-8">
     {/* Availability Status */}
     <motion.div 
-      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6 }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-2">
-            <Heart className="h-5 w-5 mr-2 text-red-600" />
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-2">
+            <Heart className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-red-600" />
             Donor Status
           </h3>
-          <p className="text-sm text-gray-600">
+          <p className="text-xs sm:text-sm text-gray-600">
             {isAvailable 
               ? 'You are currently available to help patients in need' 
               : 'You are currently unavailable for blood donations'
@@ -710,31 +712,32 @@ const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptReq
       </div>
     </motion.div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
       {/* Nearby Requests */}
       <motion.div 
-        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.7 }}
       >
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-            <MapPin className="h-5 w-5 mr-2 text-red-600" />
-            {hasLocation ? 'Nearby Requests (10km)' : 'Compatible Requests'}
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
+            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-red-600" />
+            <span className="hidden sm:inline">{hasLocation ? 'Nearby Requests (10km)' : 'Compatible Requests'}</span>
+            <span className="sm:hidden">{hasLocation ? 'Nearby' : 'Requests'}</span>
           </h3>
-          <button className="text-sm text-red-600 hover:text-red-700 font-medium">
+          <button className="text-xs sm:text-sm text-red-600 hover:text-red-700 font-medium min-h-[44px] px-2">
             View All
           </button>
         </div>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {!isAvailable ? (
-          <div className="text-center py-8">
-            <div className="h-12 w-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <div className="h-6 w-6 bg-gray-300 rounded-full"></div>
+          <div className="text-center py-6 sm:py-8">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <div className="h-5 w-5 sm:h-6 sm:w-6 bg-gray-300 rounded-full"></div>
             </div>
-            <p className="text-gray-500 mb-4">Enable availability to see nearby requests</p>
-            <p className="text-sm text-gray-400">Toggle your availability status above to help others</p>
+            <p className="text-sm sm:text-base text-gray-500 mb-3 sm:mb-4">Enable availability to see nearby requests</p>
+            <p className="text-xs sm:text-sm text-gray-400">Toggle your availability status above to help others</p>
           </div>
         ) : nearbyRequests.length > 0 ? nearbyRequests.map((request, index) => {
           const compatibility = user?.bloodGroup ? getCompatibilityStatus(user.bloodGroup, request.bloodGroup) : null;
@@ -742,20 +745,20 @@ const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptReq
           return (
             <motion.div
               key={request.id}
-              className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200"
+              className="p-3 sm:p-4 border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
               whileHover={{ y: -2 }}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 bg-red-100 rounded-full flex items-center justify-center">
-                    <Heart className="h-5 w-5 text-red-600" />
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
                   </div>
-                  <div>
-                    <p className="font-medium text-gray-900">{request.bloodGroup} Blood</p>
-                    <p className="text-sm text-gray-500">{request.hospital}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm sm:text-base font-medium text-gray-900 truncate">{request.bloodGroup} Blood</p>
+                    <p className="text-xs sm:text-sm text-gray-500 truncate">{request.hospital}</p>
                   </div>
                 </div>
                 <div className="flex flex-col items-end space-y-1">
@@ -771,14 +774,14 @@ const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptReq
                   )}
                 </div>
               </div>
-              <div className="flex items-center justify-between text-sm text-gray-600">
+              <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                 <span>{request.distance} away</span>
                 <span>{request.units} unit{request.units > 1 ? 's' : ''} needed</span>
               </div>
               <motion.button
                 onClick={() => onShowRequestDetail(request)}
                 disabled={compatibility && compatibility.status === 'incompatible'}
-                className={`w-full mt-3 py-2 rounded-lg transition-all duration-200 ${
+                className={`w-full py-2 sm:py-2 rounded-lg transition-all duration-200 text-sm sm:text-base min-h-[44px] ${
                   compatibility && compatibility.status === 'incompatible'
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700'
@@ -791,12 +794,12 @@ const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptReq
             </motion.div>
           );
         }) : (
-          <div className="text-center py-8">
-            <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">
+          <div className="text-center py-6 sm:py-8">
+            <MapPin className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-gray-500">
               {!hasLocation ? 'No compatible blood requests found' : 'No nearby requests found'}
             </p>
-            <p className="text-sm text-gray-400 mt-2">
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
               {!hasLocation ? 'Check back later for new blood requests' : 'Check back later for new requests'}
             </p>
           </div>
@@ -806,44 +809,44 @@ const DonorTab = ({ nearbyRequests, isAvailable, toggleAvailability, onAcceptReq
 
       {/* Donation History */}
       <motion.div 
-        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+        className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.8 }}
       >
-      <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-6">
-        <Calendar className="h-5 w-5 mr-2 text-green-600" />
+      <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-4 sm:mb-6">
+        <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-green-600" />
         Donation History
       </h3>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {stats?.recentDonations && stats.recentDonations.length > 0 ? (
           stats.recentDonations.map((donation, index) => (
             <motion.div
               key={donation._id}
-              className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg"
+              className="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 bg-gray-50 rounded-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
             >
-              <div className="h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="h-4 w-4 text-green-600" />
+              <div className="h-7 w-7 sm:h-8 sm:w-8 bg-green-100 rounded-full flex items-center justify-center">
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
                   Donated {donation.bloodGroup} blood to {donation.requesterId?.name || 'Unknown'}
                 </p>
                 <p className="text-xs text-gray-500">
                   {new Date(donation.completedAt || donation.createdAt).toLocaleDateString()}
                 </p>
               </div>
-              <span className="text-sm text-green-600 font-medium">Completed</span>
+              <span className="text-xs sm:text-sm text-green-600 font-medium">Completed</span>
             </motion.div>
           ))
         ) : (
-          <div className="text-center py-8">
-            <CheckCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No donation history yet</p>
-            <p className="text-sm text-gray-400 mt-2">Start donating to help save lives!</p>
+          <div className="text-center py-6 sm:py-8">
+            <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-gray-500">No donation history yet</p>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">Start donating to help save lives!</p>
           </div>
         )}
       </div>
@@ -858,22 +861,22 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
   // For patient tab, we only show requests created by the user, not accepted requests
   
   return (
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
     {/* My Requests */}
     <motion.div 
-      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.6 }}
     >
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-          <Users className="h-5 w-5 mr-2 text-blue-600" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
+          <Users className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-600" />
           My Requests
         </h3>
         <motion.button
           onClick={onCreateRequest}
-          className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200"
+          className="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 min-h-[44px] w-full sm:w-auto"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -881,21 +884,21 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
           <span className="text-sm font-medium">New Request</span>
         </motion.button>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {createdRequests.length > 0 ? createdRequests.map((request, index) => (
           <motion.div
             key={request._id}
-            className="p-4 border border-gray-200 rounded-xl"
+            className="p-3 sm:p-4 border border-gray-200 rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + index * 0.1 }}
           >
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="font-medium text-gray-900">{request.bloodGroup} Blood Request</p>
-                <p className="text-sm text-gray-500">{request.hospitalName}</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm sm:text-base font-medium text-gray-900 truncate">{request.bloodGroup} Blood Request</p>
+                <p className="text-xs sm:text-sm text-gray-500 truncate">{request.hospitalName}</p>
               </div>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              <span className={`px-2 py-1 rounded-full text-xs font-medium self-start sm:self-auto ${
                 request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                 request.status === 'accepted' ? 'bg-blue-100 text-blue-800' :
                 request.status === 'on_the_way' ? 'bg-purple-100 text-purple-800' :
@@ -905,12 +908,12 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
                 {request.status.replace('_', ' ').toUpperCase()}
               </span>
             </div>
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
               <span>{request.unitsNeeded} unit{request.unitsNeeded > 1 ? 's' : ''} needed</span>
               <span>Created {new Date(request.createdAt).toLocaleDateString()}</span>
             </div>
             {request.donorId && (
-              <div className="text-sm text-gray-600 mb-3">
+              <div className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                 <p>Donor: {request.donorId.name}</p>
                 {request.acceptedAt && (
                   <p>Accepted: {new Date(request.acceptedAt).toLocaleDateString()}</p>
@@ -921,7 +924,7 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
               <motion.button
                 onClick={() => onUpdateRequestStatus(request._id, 'on_the_way')}
                 disabled={updatingRequest === request._id}
-                className={`w-full py-2 rounded-lg transition-all duration-200 ${
+                className={`w-full py-2 sm:py-2 rounded-lg transition-all duration-200 text-sm sm:text-base min-h-[44px] ${
                   updatingRequest === request._id 
                     ? 'bg-gray-400 cursor-not-allowed' 
                     : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'
@@ -943,7 +946,7 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
               <motion.button
                 onClick={() => onUpdateRequestStatus(request._id, 'completed')}
                 disabled={updatingRequest === request._id}
-                className={`w-full py-2 rounded-lg transition-all duration-200 ${
+                className={`w-full py-2 sm:py-2 rounded-lg transition-all duration-200 text-sm sm:text-base min-h-[44px] ${
                   updatingRequest === request._id 
                     ? 'bg-gray-400 cursor-not-allowed' 
                     : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
@@ -963,10 +966,10 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
             )}
           </motion.div>
         )) : (
-          <div className="text-center py-8">
-            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No blood requests created yet</p>
-            <p className="text-sm text-gray-400">Create your first blood request to get started!</p>
+          <div className="text-center py-6 sm:py-8">
+            <Users className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-gray-500">No blood requests created yet</p>
+            <p className="text-xs sm:text-sm text-gray-400">Create your first blood request to get started!</p>
           </div>
         )}
       </div>
@@ -974,35 +977,35 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
 
     {/* Request History */}
     <motion.div 
-      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.6 }}
     >
-      <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-6">
-        <Clock className="h-5 w-5 mr-2 text-purple-600" />
+      <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-4 sm:mb-6">
+        <Clock className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-purple-600" />
         Request History
       </h3>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {createdRequests.length > 0 ? createdRequests.map((request, index) => (
           <motion.div
             key={request._id}
-            className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg"
+            className="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 bg-gray-50 rounded-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + index * 0.1 }}
           >
-            <div className={`h-8 w-8 rounded-full flex items-center justify-center ${
+            <div className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center ${
               request.status === 'completed' ? 'bg-green-100' :
               request.status === 'on_the_way' ? 'bg-purple-100' :
               'bg-blue-100'
             }`}>
-              {request.status === 'completed' ? <CheckCircle className="h-4 w-4 text-green-600" /> :
-               request.status === 'on_the_way' ? <Clock className="h-4 w-4 text-purple-600" /> :
-               <Activity className="h-4 w-4 text-blue-600" />}
+              {request.status === 'completed' ? <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" /> :
+               request.status === 'on_the_way' ? <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" /> :
+               <Activity className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />}
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-gray-900">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
                 {request.donorId ? `Got ${request.bloodGroup} blood from ${request.donorId.name}` : `${request.bloodGroup} Blood Request`}
               </p>
               <p className="text-xs text-gray-500">
@@ -1011,7 +1014,7 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
                  `Requested for ${request.hospitalName}`}
               </p>
             </div>
-            <span className={`text-sm font-medium ${
+            <span className={`text-xs sm:text-sm font-medium ${
               request.status === 'completed' ? 'text-green-600' :
               request.status === 'on_the_way' ? 'text-purple-600' :
               'text-blue-600'
@@ -1022,10 +1025,10 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
             </span>
           </motion.div>
         )) : (
-          <div className="text-center py-8">
-            <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No request history yet</p>
-            <p className="text-sm text-gray-400">Create your first blood request to get started!</p>
+          <div className="text-center py-6 sm:py-8">
+            <Heart className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-gray-500">No request history yet</p>
+            <p className="text-xs sm:text-sm text-gray-400">Create your first blood request to get started!</p>
           </div>
         )}
       </div>
@@ -1036,35 +1039,35 @@ const PatientTab = ({ myRequests, onUpdateRequestStatus, onCreateRequest, user, 
 
 const ActivityTab = ({ recentActivity }) => (
   <motion.div 
-    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.6 }}
   >
-    <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-6">
-      <Activity className="h-5 w-5 mr-2 text-indigo-600" />
+    <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-4 sm:mb-6">
+      <Activity className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-indigo-600" />
       Activity Timeline
     </h3>
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {recentActivity.map((activity, index) => (
         <motion.div
           key={activity.id}
-          className="flex items-start space-x-4"
+          className="flex items-start space-x-3 sm:space-x-4"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.7 + index * 0.1 }}
         >
-          <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
+          <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center ${
             activity.type === 'donation' ? 'bg-red-100' :
             activity.type === 'request' ? 'bg-blue-100' :
             'bg-yellow-100'
           }`}>
-            {activity.type === 'donation' ? <Heart className="h-5 w-5 text-red-600" /> :
-             activity.type === 'request' ? <Users className="h-5 w-5 text-blue-600" /> :
-             <Award className="h-5 w-5 text-yellow-600" />}
+            {activity.type === 'donation' ? <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" /> :
+             activity.type === 'request' ? <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" /> :
+             <Award className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600" />}
           </div>
-          <div className="flex-1">
-            <p className="text-sm font-medium text-gray-900">{activity.message}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs sm:text-sm font-medium text-gray-900">{activity.message}</p>
             <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
           </div>
         </motion.div>
@@ -1077,20 +1080,20 @@ const AchievementsTab = ({ badges }) => {
   
   if (!badges || badges.length === 0) {
     return (
-      <div className="text-center py-12">
-        <div className="text-6xl mb-4">🏆</div>
-        <p className="text-gray-500 text-lg">No achievements available</p>
-        <p className="text-gray-400 text-sm">Complete donations to earn badges!</p>
+      <div className="text-center py-8 sm:py-12">
+        <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">🏆</div>
+        <p className="text-gray-500 text-base sm:text-lg">No achievements available</p>
+        <p className="text-gray-400 text-xs sm:text-sm">Complete donations to earn badges!</p>
       </div>
     );
   }
   
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {badges.map((badge, index) => (
       <motion.div
         key={badge.name}
-        className={`p-6 rounded-2xl border-2 ${
+        className={`p-4 sm:p-6 rounded-2xl border-2 ${
           badge.earned 
             ? 'bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-200' 
             : 'bg-gray-50 border-gray-200'
@@ -1101,14 +1104,14 @@ const AchievementsTab = ({ badges }) => {
         whileHover={{ scale: 1.05 }}
       >
         <div className="text-center">
-          <div className="text-4xl mb-3">{badge.icon}</div>
-          <h3 className="font-semibold text-gray-900 mb-2">{badge.name}</h3>
-          <p className="text-sm text-gray-600 mb-4">
+          <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{badge.icon}</div>
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1 sm:mb-2">{badge.name}</h3>
+          <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
             {badge.earned ? 'Earned!' : 'Not earned yet'}
           </p>
           {badge.earned && (
             <motion.div
-              className="inline-flex items-center px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium"
+              className="inline-flex items-center px-2 sm:px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.8 + index * 0.1 }}
@@ -1129,43 +1132,44 @@ const RequestDetailModal = ({ request, user, onClose, onAccept }) => {
   const compatibility = user?.bloodGroup ? getCompatibilityStatus(user.bloodGroup, request.bloodGroup) : null;
   
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
       <motion.div
-        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Heart className="h-6 w-6 mr-2 text-red-600" />
-              Blood Request Details
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-2xl font-bold text-gray-900 flex items-center">
+              <Heart className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-red-600" />
+              <span className="hidden sm:inline">Blood Request Details</span>
+              <span className="sm:hidden">Request Details</span>
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           </div>
 
           {/* Request Information */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Blood Type and Urgency */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="bg-red-100 p-3 rounded-xl">
-                  <Heart className="h-6 w-6 text-red-600" />
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center space-x-3 sm:space-x-4">
+                <div className="bg-red-100 p-2 sm:p-3 rounded-xl">
+                  <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{request.bloodGroup} Blood</h3>
-                  <p className="text-sm text-gray-500">{request.hospital}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{request.bloodGroup} Blood</h3>
+                  <p className="text-xs sm:text-sm text-gray-500">{request.hospital}</p>
                 </div>
               </div>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+              <span className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
                 request.urgency === 'critical' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
               }`}>
                 {request.urgency}
@@ -1174,20 +1178,20 @@ const RequestDetailModal = ({ request, user, onClose, onAccept }) => {
 
             {/* Compatibility Status */}
             {compatibility && (
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700">Blood Compatibility:</span>
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium border ${compatibility.className}`}>
+              <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">Blood Compatibility:</span>
+                  <span className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium border ${compatibility.className}`}>
                     {compatibility.text}
                   </span>
                 </div>
                 {compatibility.status === 'compatible' && (
-                  <p className="text-sm text-green-600 mt-2">
+                  <p className="text-xs sm:text-sm text-green-600 mt-2">
                     ✓ Your {user.bloodGroup} blood is compatible with {request.bloodGroup} blood
                   </p>
                 )}
                 {compatibility.status === 'incompatible' && (
-                  <p className="text-sm text-red-600 mt-2">
+                  <p className="text-xs sm:text-sm text-red-600 mt-2">
                     ✗ Your {user.bloodGroup} blood is not compatible with {request.bloodGroup} blood
                   </p>
                 )}
@@ -1195,28 +1199,28 @@ const RequestDetailModal = ({ request, user, onClose, onAccept }) => {
             )}
 
             {/* Request Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-blue-50 p-3 sm:p-4 rounded-xl">
                 <div className="flex items-center mb-2">
-                  <MapPin className="h-5 w-5 text-blue-600 mr-2" />
-                  <span className="text-sm font-medium text-blue-800">Distance</span>
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 mr-2" />
+                  <span className="text-xs sm:text-sm font-medium text-blue-800">Distance</span>
                 </div>
-                <p className="text-lg font-semibold text-blue-900">{request.distance} away</p>
+                <p className="text-base sm:text-lg font-semibold text-blue-900">{request.distance} away</p>
               </div>
               
-              <div className="bg-green-50 p-4 rounded-xl">
+              <div className="bg-green-50 p-3 sm:p-4 rounded-xl">
                 <div className="flex items-center mb-2">
-                  <Activity className="h-5 w-5 text-green-600 mr-2" />
-                  <span className="text-sm font-medium text-green-800">Units Needed</span>
+                  <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 mr-2" />
+                  <span className="text-xs sm:text-sm font-medium text-green-800">Units Needed</span>
                 </div>
-                <p className="text-lg font-semibold text-green-900">{request.units} unit{request.units > 1 ? 's' : ''}</p>
+                <p className="text-base sm:text-lg font-semibold text-green-900">{request.units} unit{request.units > 1 ? 's' : ''}</p>
               </div>
             </div>
 
             {/* Additional Information */}
-            <div className="bg-gray-50 p-4 rounded-xl">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Additional Information</h4>
-              <div className="space-y-2 text-sm text-gray-600">
+            <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
+              <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Additional Information</h4>
+              <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
                 <p><strong>Hospital:</strong> {request.hospital}</p>
                 <p><strong>Blood Type:</strong> {request.bloodGroup}</p>
                 <p><strong>Urgency:</strong> {request.urgency}</p>
@@ -1226,10 +1230,10 @@ const RequestDetailModal = ({ request, user, onClose, onAccept }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex space-x-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <motion.button
                 onClick={onClose}
-                className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px] text-sm sm:text-base"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -1239,7 +1243,7 @@ const RequestDetailModal = ({ request, user, onClose, onAccept }) => {
               <motion.button
                 onClick={() => onAccept(request.id)}
                 disabled={compatibility && compatibility.status === 'incompatible'}
-                className={`flex-1 py-3 px-6 rounded-lg transition-all duration-200 ${
+                className={`flex-1 py-3 px-6 rounded-lg transition-all duration-200 min-h-[44px] text-sm sm:text-base ${
                   compatibility && compatibility.status === 'incompatible'
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700'
