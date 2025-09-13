@@ -164,7 +164,7 @@ const EnhancedDashboard = () => {
 
         {/* Quick Stats */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -205,23 +205,23 @@ const EnhancedDashboard = () => {
           ].map((stat, index) => (
             <motion.div 
               key={stat.label}
-              className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300"
+              className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6 hover:shadow-xl transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`h-12 w-12 bg-gradient-to-br ${stat.bgColor} rounded-xl flex items-center justify-center`}>
-                  <stat.icon className={`h-6 w-6 text-gradient-to-r ${stat.color}`} />
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className={`h-10 w-10 sm:h-12 sm:w-12 bg-gradient-to-br ${stat.bgColor} rounded-xl flex items-center justify-center`}>
+                  <stat.icon className={`h-5 w-5 sm:h-6 sm:w-6 text-gradient-to-r ${stat.color}`} />
                 </div>
-                <span className="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                <span className="text-xs sm:text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">
                   {stat.change}
                 </span>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 mb-1">{stat.label}</p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                <p className="text-xs sm:text-sm font-medium text-gray-500 mb-1">{stat.label}</p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900">{stat.value}</p>
               </div>
             </motion.div>
           ))}
@@ -234,13 +234,13 @@ const EnhancedDashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2">
-            <div className="flex space-x-2">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-1 sm:p-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {tabs.map((tab, index) => (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-2 sm:py-3 rounded-xl font-medium transition-all duration-200 text-sm sm:text-base min-h-[44px] ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -251,8 +251,9 @@ const EnhancedDashboard = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <tab.icon className="h-4 w-4" />
-                  <span>{tab.name}</span>
+                  <tab.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="hidden sm:inline">{tab.name}</span>
+                  <span className="sm:hidden text-xs">{tab.name}</span>
                 </motion.button>
               ))}
             </div>
@@ -269,21 +270,21 @@ const EnhancedDashboard = () => {
             transition={{ duration: 0.3 }}
           >
             {activeTab === 'overview' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                 {/* Recent Activity */}
                 <div className="lg:col-span-2">
                   <motion.div 
-                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-                        <Activity className="h-5 w-5 mr-2 text-blue-600" />
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
+                        <Activity className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-600" />
                         Recent Activity
                       </h3>
-                      <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                      <button className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 font-medium min-h-[44px] px-2">
                         View All
                       </button>
                     </div>
@@ -291,22 +292,22 @@ const EnhancedDashboard = () => {
                       {recentActivity.map((activity, index) => (
                         <motion.div
                           key={activity.id}
-                          className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                          className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.7 + index * 0.1 }}
                         >
-                          <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
+                          <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center ${
                             activity.type === 'donation' ? 'bg-red-100' :
                             activity.type === 'request' ? 'bg-blue-100' :
                             'bg-yellow-100'
                           }`}>
-                            {activity.type === 'donation' ? <Heart className="h-5 w-5 text-red-600" /> :
-                             activity.type === 'request' ? <Users className="h-5 w-5 text-blue-600" /> :
-                             <Award className="h-5 w-5 text-yellow-600" />}
+                            {activity.type === 'donation' ? <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" /> :
+                             activity.type === 'request' ? <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" /> :
+                             <Award className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600" />}
                           </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium text-gray-900">{activity.message}</p>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">{activity.message}</p>
                             <p className="text-xs text-gray-500">{activity.time}</p>
                           </div>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -323,16 +324,16 @@ const EnhancedDashboard = () => {
                 </div>
 
                 {/* Notifications & Quick Actions */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Notifications */}
                   <motion.div 
-                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-4">
-                      <Bell className="h-5 w-5 mr-2 text-purple-600" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-3 sm:mb-4">
+                      <Bell className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-purple-600" />
                       Notifications
                     </h3>
                     <div className="space-y-3">
@@ -346,7 +347,7 @@ const EnhancedDashboard = () => {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.7 + index * 0.1 }}
                         >
-                          <p className="text-sm text-gray-900">{notification.message}</p>
+                          <p className="text-xs sm:text-sm text-gray-900">{notification.message}</p>
                           <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
                         </motion.div>
                       ))}
@@ -355,39 +356,39 @@ const EnhancedDashboard = () => {
 
                   {/* Quick Actions */}
                   <motion.div 
-                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6"
+                    className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.8 }}
                   >
-                    <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-4">
-                      <Zap className="h-5 w-5 mr-2 text-yellow-600" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center mb-3 sm:mb-4">
+                      <Zap className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-yellow-600" />
                       Quick Actions
                     </h3>
                     <div className="space-y-3">
                       <motion.button
-                        className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200"
+                        className="w-full flex items-center space-x-2 sm:space-x-3 p-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 min-h-[44px]"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <Heart className="h-4 w-4" />
-                        <span className="text-sm font-medium">Find Donation Requests</span>
+                        <span className="text-xs sm:text-sm font-medium">Find Donation Requests</span>
                       </motion.button>
                       <motion.button
-                        className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200"
+                        className="w-full flex items-center space-x-2 sm:space-x-3 p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 min-h-[44px]"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <Plus className="h-4 w-4" />
-                        <span className="text-sm font-medium">Create Blood Request</span>
+                        <span className="text-xs sm:text-sm font-medium">Create Blood Request</span>
                       </motion.button>
                       <motion.button
-                        className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200"
+                        className="w-full flex items-center space-x-2 sm:space-x-3 p-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 min-h-[44px]"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <Share2 className="h-4 w-4" />
-                        <span className="text-sm font-medium">Share Your Impact</span>
+                        <span className="text-xs sm:text-sm font-medium">Share Your Impact</span>
                       </motion.button>
                     </div>
                   </motion.div>

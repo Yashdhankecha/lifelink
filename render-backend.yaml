@@ -17,7 +17,7 @@ services:
       - key: JWT_EXPIRE
         value: 7d
       - key: CLIENT_URL
-        value: https://your-netlify-app.netlify.app
+        value: https://lifelink-t6hl.netlify.app
       - key: EMAIL_HOST
         value: smtp.gmail.com
       - key: EMAIL_PORT
@@ -28,3 +28,4 @@ services:
         value: bewz faij mzfm mwnb
       - key: GROQ_API_KEY
         value: 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
+

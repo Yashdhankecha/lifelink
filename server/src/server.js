@@ -32,11 +32,12 @@ app.use(cookieParser());
 // CORS middleware
 app.use(cors({
   origin: [
+    "https://lifelink-t6hl.netlify.app",
     "https://lifelinkbytripod.netlify.app",
     "http://localhost:5173"
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 

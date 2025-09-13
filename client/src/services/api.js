@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Use environment variable for API URL, fallback to Render backend
-const API_URL = import.meta.env.VITE_API_URL || 'https://your-render-backend.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://lifelink-t6hl.onrender.com/api';
 
 // Create axios instance
 const api = axios.create({

@@ -251,3 +251,4 @@ async function createVerifiedUser() {
 
 // Run the script
 createVerifiedUser().catch(console.error);
+

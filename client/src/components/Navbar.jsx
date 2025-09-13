@@ -196,13 +196,20 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden animate-slide-in-up">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
             {!isAuthenticated && (
               <Link
                 to="/"
-                className="text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                className="text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px] flex items-center"
                 onClick={() => setIsOpen(false)}
               >
                 Home
@@ -214,7 +221,7 @@ const Navbar = () => {
                 {user?.role === 'user' ? (
                   <Link
                     to="/dashboard"
-                    className="text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                    className="text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px] flex items-center"
                     onClick={() => setIsOpen(false)}
                   >
                     Dashboard
@@ -223,7 +230,7 @@ const Navbar = () => {
                   <>
                     <Link
                       to={getDashboardLink()}
-                      className="text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                      className="text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px] flex items-center"
                       onClick={() => setIsOpen(false)}
                     >
                       {getDashboardName()}
@@ -234,7 +241,7 @@ const Navbar = () => {
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                          className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px]"
                           onClick={() => setIsOpen(false)}
                         >
                           <Icon className="h-4 w-4" />
@@ -251,7 +258,7 @@ const Navbar = () => {
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                          className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px]"
                           onClick={() => setIsOpen(false)}
                         >
                           <Icon className="h-4 w-4" />
@@ -263,17 +270,17 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to={getDashboardLink()}
-                    className="text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                    className="text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px] flex items-center"
                     onClick={() => setIsOpen(false)}
                   >
                     {getDashboardName()}
                   </Link>
                 )}
-                <div className="px-3 py-2">
+                <div className="px-4 py-3 border-t border-gray-200 space-y-2">
                   {user?.role === 'hospital' ? (
                     <Link
                       to="/hospital/profile"
-                      className="flex items-center space-x-2 mb-2 text-gray-700 hover:text-primary-600 text-base font-medium"
+                      className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 text-base font-medium min-h-[44px]"
                       onClick={() => setIsOpen(false)}
                     >
                       <Building2 className="h-4 w-4" />
@@ -282,7 +289,7 @@ const Navbar = () => {
                   ) : user?.role !== 'admin' && (
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-2 mb-2 text-gray-700 hover:text-primary-600 text-base font-medium"
+                      className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 text-base font-medium min-h-[44px]"
                       onClick={() => setIsOpen(false)}
                     >
                       <User className="h-4 w-4" />
@@ -291,7 +298,7 @@ const Navbar = () => {
                   )}
                   <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-1 text-gray-700 hover:text-primary-600 text-base font-medium"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 text-base font-medium min-h-[44px] w-full"
                   >
                     <LogOut className="h-4 w-4" />
                     <span>Logout</span>
@@ -302,23 +309,24 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-700 hover:text-primary-600 block px-4 py-3 rounded-md text-base font-medium min-h-[44px] flex items-center"
                   onClick={() => setIsOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="btn-primary block text-center"
+                  className="btn-primary block text-center min-h-[44px] flex items-center justify-center"
                   onClick={() => setIsOpen(false)}
                 >
                   Sign Up
                 </Link>
               </>
             )}
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </nav>
   );

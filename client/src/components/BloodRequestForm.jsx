@@ -135,27 +135,27 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
       <motion.div 
-        className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
       >
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">
+        <div className="p-4 sm:p-6">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-2xl font-bold text-gray-900">
               {isEditing ? 'Edit Blood Request' : 'Create Blood Request'}
             </h3>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
               <X className="h-6 w-6" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Blood Group */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -166,7 +166,7 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
                 value={formData.bloodGroup}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent min-h-[44px] text-base"
               >
                 <option value="">Select Blood Group</option>
                 {bloodGroups.map(group => (
@@ -185,7 +185,7 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
                 value={formData.unitsNeeded}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent min-h-[44px] text-base"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(unit => (
                   <option key={unit} value={unit}>{unit} unit{unit > 1 ? 's' : ''}</option>
@@ -198,8 +198,8 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Urgency Level *
               </label>
-              <div className="grid grid-cols-2 gap-4">
-                <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label className={`flex items-center p-3 sm:p-4 border-2 rounded-lg cursor-pointer transition-colors min-h-[44px] ${
                   formData.urgency === 'normal' ? 'border-green-500 bg-green-50' : 'border-gray-200'
                 }`}>
                   <input
@@ -219,7 +219,7 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
                   </div>
                 </label>
                 
-                <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                <label className={`flex items-center p-3 sm:p-4 border-2 rounded-lg cursor-pointer transition-colors min-h-[44px] ${
                   formData.urgency === 'critical' ? 'border-red-500 bg-red-50' : 'border-gray-200'
                 }`}>
                   <input
@@ -258,7 +258,7 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
                   value={formData.selectedHospitalId}
                   onChange={handleHospitalChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent min-h-[44px] text-base"
                 >
                   <option value="">Select a registered hospital</option>
                   {hospitals.map(hospital => (
@@ -300,7 +300,7 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
                 onChange={handleInputChange}
                 rows={3}
                 placeholder="Any additional information (optional)"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none text-base min-h-[80px]"
               />
             </div>
 
@@ -321,18 +321,18 @@ const BloodRequestForm = ({ isOpen, onClose, onSuccess, editData, isEditing = fa
             </div>
 
             {/* Submit Button */}
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px] text-base"
               >
                 Cancel
               </button>
               <motion.button
                 type="submit"
                 disabled={loading || !latitude || !longitude}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 min-h-[44px] text-base"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

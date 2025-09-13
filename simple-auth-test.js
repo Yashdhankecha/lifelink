@@ -243,3 +243,4 @@ async function runSimpleAuthTest() {
 
 // Run the test
 runSimpleAuthTest().catch(console.error);
+

@@ -247,3 +247,4 @@ async function runDatabaseCheck() {
 
 // Run tests
 runDatabaseCheck().catch(console.error);
+
